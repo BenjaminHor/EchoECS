@@ -1,0 +1,9 @@
+# Ignore everything but source #
+################################
+
+*.idea
+*.settings
+\bin
+\out
+\target
+EchoECS.iml
