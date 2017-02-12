@@ -1,6 +1,6 @@
 package com.apollo.echo.ecs;
 
-public class VelocityComponent extends ECS_Component {
+public class VelocityComponent extends ECSComponent {
     public int x, y, dx, dy;
 
     public VelocityComponent(int x, int y, int dx, int dy) {

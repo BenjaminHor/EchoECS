@@ -18,6 +18,8 @@ public class Main extends Canvas {
         System.setProperty("sun.java2d.opengl", "True");
         Main main = new Main();
 
+        //THis is a change
+
         window.add(main);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
@@ -57,7 +59,7 @@ public class Main extends Canvas {
 
     private BufferStrategy bufferStrategy;
     private static Graphics2D graphicsContext;
-    private static ECS_World gameWorld;
+    private static ECSWorld gameWorld;
     BufferedImage image;
 
     public Main() {
@@ -71,7 +73,7 @@ public class Main extends Canvas {
         }
 
         // TEST RUN
-        gameWorld = new ECS_World();
+        gameWorld = new ECSWorld();
 
         gameWorld.registerSystem(new MovementSystem());
         gameWorld.registerSystem(new RenderSystem());
@@ -128,7 +130,7 @@ public class Main extends Canvas {
         ticks++;
 
         //if(ticks % (60 / 2) == 0){
-        ECS_Entity e = gameWorld.createEntity();
+        ECSEntity e = gameWorld.createEntity();
         e.addComponent(new VelocityComponent(200, r.nextInt(500 - 50), r.nextInt(3) + 1, 6));
         e.addComponent(new RenderComponent(50, 50, new Color(r.nextInt(150), r.nextInt(1), r.nextInt(255)), image));
         gameWorld.addEntity(e);

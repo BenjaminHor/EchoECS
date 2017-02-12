@@ -6,8 +6,8 @@ package com.apollo.echo.ecs;
 import java.util.HashMap;
 import java.util.Map;
 
-public final class ECS_Entity {
-    private Map<String, ECS_Component> componentMap = new HashMap<String, ECS_Component>();
+public final class ECSEntity {
+    private Map<String, ECSComponent> componentMap = new HashMap<String, ECSComponent>();
     private String groupID = "NULL";
     private String uniqueID = "NULL";
     private boolean removed = false;
@@ -36,25 +36,27 @@ public final class ECS_Entity {
         return removed;
     }
 
-    public void addComponent(ECS_Component c) {
+    public void addComponent(ECSComponent c) {
         boolean compExists = componentMap.containsKey(c.getUniqueID());
         if (!compExists) {
             componentMap.put(c.getUniqueID(), c);
         } else System.out.println(c.getUniqueID() + " could not be added");
     }
 
-    public void removeComponent(String UID) {
-        boolean compExists = componentMap.containsKey(UID);
+    public void removeComponent(Class className) {
+        String id = className.getName();
+        boolean compExists = componentMap.containsKey(id);
         if (compExists) {
-            componentMap.remove(UID);
-        } else System.out.println(UID + " could not be removed");
+            componentMap.remove(id);
+        } else System.out.println(id + " could not be removed");
     }
 
-    public ECS_Component getComponent(String UID) {
-        boolean compExists = componentMap.containsKey(UID);
-        if (compExists) return componentMap.get(UID);
+    public ECSComponent getComponent(Class className) {
+        String id = className.getName();
+        boolean compExists = componentMap.containsKey(id);
+        if (compExists) return componentMap.get(id);
         else {
-            System.out.println(UID + " could not be retrieved");
+            System.out.println(id + " could not be retrieved");
             return null;
         }
     }

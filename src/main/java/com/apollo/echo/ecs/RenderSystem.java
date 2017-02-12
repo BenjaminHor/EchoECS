@@ -3,16 +3,14 @@ package com.apollo.echo.ecs;
 import java.awt.*;
 import java.util.Random;
 
-public class RenderSystem extends ECS_System {
-    private final String velocityID = VelocityComponent.class.getName();
-    private final String renderID = RenderComponent.class.getName();
+public class RenderSystem extends ECSSystem {
     private Graphics2D g;
 
     public RenderSystem() {
         setSystemType(SystemType.RENDER);
         setUniqueID(this.getClass().getName());
 
-        registerRelevantComponents(renderID);
+        registerRelevantComponents(RenderComponent.class);
     }
 
     Random rand = new Random();
@@ -24,9 +22,9 @@ public class RenderSystem extends ECS_System {
 
         VelocityComponent v;
         RenderComponent r;
-        for (ECS_Entity e : getEntities()) {
-            v = (VelocityComponent) e.getComponent(velocityID);
-            r = (RenderComponent) e.getComponent(renderID);
+        for (ECSEntity e : getEntities()) {
+            v = (VelocityComponent) e.getComponent(VelocityComponent.class);
+            r = (RenderComponent) e.getComponent(RenderComponent.class);
 
             if (r.isEnabled()) {
                 g.drawImage(r.image, v.x, v.y, r.sizeX, r.sizeY, null);

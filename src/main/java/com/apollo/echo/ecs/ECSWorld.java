@@ -6,13 +6,13 @@ import java.util.HashMap;
 /**
  * Created by Ben on 2/7/14.
  */
-public final class ECS_World {
-    private ECS_SystemManager systemManager;
-    private ECS_EntityManager entityManager;
+public final class ECSWorld {
+    private ECSSystemManager systemManager;
+    private ECSEntityManager entityManager;
 
-    public ECS_World() {
-        systemManager = new ECS_SystemManager(this);
-        entityManager = new ECS_EntityManager(this);
+    public ECSWorld() {
+        systemManager = new ECSSystemManager(this);
+        entityManager = new ECSEntityManager(this);
     }
 
     public void process() {
@@ -25,38 +25,38 @@ public final class ECS_World {
 
     // Entity Manager wrapper functions
 
-    public ECS_Entity createEntity() {
+    public ECSEntity createEntity() {
         return entityManager.createEntity();
     }
 
-    public void addEntity(ECS_Entity e) {
+    public void addEntity(ECSEntity e) {
         entityManager.addEntity(e);
     }
 
-    public void removeEntity(ECS_Entity e) {
+    public void removeEntity(ECSEntity e) {
         entityManager.removeEntity(e);
     }
 
-    public ArrayList<ECS_Entity> getGroup(String UID) {
+    public ArrayList<ECSEntity> getGroup(String UID) {
         return entityManager.getGroup(UID);
     }
 
-    public ECS_Entity getUniqueEntity(String UID) {
+    public ECSEntity getUniqueEntity(String UID) {
         return entityManager.getUniqueEntity(UID);
     }
 
-    public void assignGroupID(String UID, ECS_Entity e) {
+    public void assignGroupID(String UID, ECSEntity e) {
         // Combine entity manager register and assign functions together
         entityManager.assignGroupID(UID, e);
     }
 
-    public void assignUniqueID(String UID, ECS_Entity e) {
+    public void assignUniqueID(String UID, ECSEntity e) {
         entityManager.assignUniqueID(UID, e);
     }
 
     // System Manager wrapper functions
 
-    public void registerSystem(ECS_System system) {
+    public void registerSystem(ECSSystem system) {
         systemManager.registerSystem(system);
     }
 
@@ -64,27 +64,27 @@ public final class ECS_World {
         systemManager.removeSystem(UID);
     }
 
-    public ECS_System getSystem(String UID) {
+    public ECSSystem getSystem(String UID) {
         return systemManager.getSystem(UID);
     }
 
-    public ArrayList<ECS_System> getProcessSystems() {
+    public ArrayList<ECSSystem> getProcessSystems() {
         return systemManager.getProcessSystems();
     }
 
-    public ArrayList<ECS_System> getRenderSystems() {
+    public ArrayList<ECSSystem> getRenderSystems() {
         return systemManager.getRenderSystems();
     }
 
-    public HashMap<String, ECS_System> getSystemMap() {
+    public HashMap<String, ECSSystem> getSystemMap() {
         return systemManager.getSystemMap();
     }
 
-    public ECS_SystemManager getSystemManager() {
+    public ECSSystemManager getSystemManager() {
         return systemManager;
     }
 
-    public ECS_EntityManager getEntityManager() {
+    public ECSEntityManager getEntityManager() {
         return entityManager;
     }
 }

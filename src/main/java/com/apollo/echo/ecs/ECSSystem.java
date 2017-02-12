@@ -5,13 +5,13 @@ package com.apollo.echo.ecs;
 
 import java.util.ArrayList;
 
-public abstract class ECS_System {
+public abstract class ECSSystem {
     private String UID = "NULL"; // Maybe a default UID?
     private SystemType systemType = SystemType.PROCESS; // PROCESS by default
-    private ArrayList<ECS_Entity> entities = new ArrayList<ECS_Entity>();
+    private ArrayList<ECSEntity> entities = new ArrayList<ECSEntity>();
     private ArrayList<String> relevantComponents = new ArrayList<String>();
     private ArrayList<String> irrelevantComponents = new ArrayList<String>();
-    private ECS_SystemManager systemManager;
+    private ECSSystemManager systemManager;
     private boolean enabled = true;
 
     public enum SystemType {
@@ -36,10 +36,11 @@ public abstract class ECS_System {
      * Process an entity if it contains the relevant components to the system
      * but none of the rejected components
      */
-    public boolean checkEntity(ECS_Entity e) {
+    public boolean checkEntity(ECSEntity e) {
         boolean valid = false;
         for (String s : irrelevantComponents) {
             valid = e.hasComponent(s);
+
             if (valid) return !valid;
         }
         for (String s : relevantComponents) {
@@ -49,19 +50,13 @@ public abstract class ECS_System {
         return valid;
     }
 
-    protected void registerRelevantComponents(String... UID) {
-        for (int i = 0; i < UID.length; i++) {
-            if (!relevantComponents.contains(UID[i])) relevantComponents.add(UID[i]);
+    protected void registerRelevantComponents(Class... className) {
+        for (int i = 0; i < className.length; i++) {
+            if (!relevantComponents.contains(className[i])) relevantComponents.add(className[i].getName());
         }
     }
 
-    protected void registerIrrelevantComponents(String... UID) {
-        for (int i = 0; i < UID.length; i++) {
-            if (!irrelevantComponents.contains(UID[i])) irrelevantComponents.add(UID[i]);
-        }
-    }
-
-    public ArrayList<ECS_Entity> getEntities() {
+    public ArrayList<ECSEntity> getEntities() {
         return entities;
     }
 
@@ -69,15 +64,15 @@ public abstract class ECS_System {
         return UID;
     }
 
-    public void setSystemManager(ECS_SystemManager s) {
+    public void setSystemManager(ECSSystemManager s) {
         this.systemManager = s;
     }
 
-    public ECS_SystemManager getSystemManager() {
+    public ECSSystemManager getSystemManager() {
         return systemManager;
     }
 
-    public void addEntity(ECS_Entity e) {
+    public void addEntity(ECSEntity e) {
         if (!entities.contains(e)) {
             entities.add(e);
         }

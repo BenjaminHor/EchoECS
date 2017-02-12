@@ -2,8 +2,6 @@
 ################################
 
 *.idea
-*.settings
-\bin
-\out
 \target
 EchoECS.iml
+

@@ -3,11 +3,11 @@ package com.apollo.echo.ecs;
 /**
  * Created by Ben on 2/17/14.
  */
-public abstract class ECS_Component {
+public abstract class ECSComponent {
     private String UID = "NULL";
     private boolean enabled = true;
 
-    public ECS_Component() {
+    public ECSComponent() {
         this.UID = this.getClass().getName();
     }
 

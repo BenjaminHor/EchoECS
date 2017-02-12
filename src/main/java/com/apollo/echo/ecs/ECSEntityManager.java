@@ -7,31 +7,31 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
-public final class ECS_EntityManager {
-    public ArrayList<ECS_Entity> entities = new ArrayList<ECS_Entity>();
-    private HashMap<String, ArrayList<ECS_Entity>> groupMap = new HashMap<String, ArrayList<ECS_Entity>>();
-    private HashMap<String, ECS_Entity> uniqueMap = new HashMap<String, ECS_Entity>();
+public final class ECSEntityManager {
+    public ArrayList<ECSEntity> entities = new ArrayList<ECSEntity>();
+    private HashMap<String, ArrayList<ECSEntity>> groupMap = new HashMap<String, ArrayList<ECSEntity>>();
+    private HashMap<String, ECSEntity> uniqueMap = new HashMap<String, ECSEntity>();
 
-    private ECS_World world;
+    private ECSWorld world;
 
-    public ECS_EntityManager(ECS_World world) {
+    public ECSEntityManager(ECSWorld world) {
         this.world = world;
     }
 
-    public ECS_Entity createEntity() {
-        return new ECS_Entity();
+    public ECSEntity createEntity() {
+        return new ECSEntity();
     }
 
     // Figures out which systems are interested in the entity
-    public void addEntity(ECS_Entity e) {
+    public void addEntity(ECSEntity e) {
         entities.add(e);
         world.getSystemManager().insertEntity(e);
     }
 
-    public void removeEntity(ECS_Entity e) {
-        ECS_SystemManager manager = world.getSystemManager();
-        Collection<ECS_System> systems = manager.getSystemMap().values();
-        for (ECS_System s : systems) {
+    public void removeEntity(ECSEntity e) {
+        ECSSystemManager manager = world.getSystemManager();
+        Collection<ECSSystem> systems = manager.getSystemMap().values();
+        for (ECSSystem s : systems) {
             s.getEntities().remove(e);
         }
         entities.remove(e);
@@ -42,21 +42,21 @@ public final class ECS_EntityManager {
         if (!e.getUniqueID().equals("NULL")) uniqueMap.remove(e.getUniqueID());
     }
 
-    public ArrayList<ECS_Entity> getGroup(String UID) {
+    public ArrayList<ECSEntity> getGroup(String UID) {
         boolean groupExists = groupMap.containsKey(UID);
         if (groupExists) return groupMap.get(UID);
         else System.out.println(UID + " could not be retrieved");
         return null;
     }
 
-    public ECS_Entity getUniqueEntity(String UID) {
+    public ECSEntity getUniqueEntity(String UID) {
         boolean entityExists = uniqueMap.containsKey(UID);
         if (entityExists) return uniqueMap.get(UID);
         else System.out.println(UID + " could not be retrieved");
         return null;
     }
 
-    public void assignGroupID(String UID, ECS_Entity e) {
+    public void assignGroupID(String UID, ECSEntity e) {
         boolean groupExists = groupMap.containsKey(UID);
         if (groupExists) {
             //Check if entity has already been assigned to group
@@ -66,14 +66,14 @@ public final class ECS_EntityManager {
                 groupMap.get(UID).add(e);
             } else System.out.println("Entity already assigned to " + UID);
         } else if (!groupExists) {
-            ArrayList<ECS_Entity> group = new ArrayList<ECS_Entity>();
+            ArrayList<ECSEntity> group = new ArrayList<ECSEntity>();
             groupMap.put(UID, group);
             e.setGroupID(UID);
             groupMap.get(UID).add(e);
         } else System.out.println("Could not assign entity to group " + UID);
     }
 
-    public void assignUniqueID(String UID, ECS_Entity e) {
+    public void assignUniqueID(String UID, ECSEntity e) {
         boolean uniqueAssigned = uniqueMap.containsKey(UID);
         if (!uniqueAssigned) {
             e.setUniqueID(UID);
@@ -81,7 +81,7 @@ public final class ECS_EntityManager {
         } else System.out.println("Could not assigned entity to unique " + UID);
     }
 
-    public ECS_World getWorld() {
+    public ECSWorld getWorld() {
         return world;
     }
 }
