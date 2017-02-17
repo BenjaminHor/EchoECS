@@ -3,7 +3,6 @@ package com.apollo.echo.ecs;
 public class MovementSystem extends ECSSystem {
     public MovementSystem() {
         setSystemType(SystemType.PROCESS);
-        setUniqueID(this.getClass().getName());
 
         registerRelevantComponents(VelocityComponent.class);
     }

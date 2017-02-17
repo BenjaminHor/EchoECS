@@ -8,7 +8,6 @@ public class RenderSystem extends ECSSystem {
 
     public RenderSystem() {
         setSystemType(SystemType.RENDER);
-        setUniqueID(this.getClass().getName());
 
         registerRelevantComponents(RenderComponent.class);
     }

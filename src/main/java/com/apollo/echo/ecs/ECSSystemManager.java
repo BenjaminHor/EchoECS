@@ -31,9 +31,7 @@ public final class ECSSystemManager {
     //Placing entity into appropriate processSystems
     public void insertEntity(ECSEntity e) {
         for (ECSSystem s : systemMap.values()) {
-            if (s.checkEntity(e)) {
-                s.addEntity(e);
-            }
+            s.addEntity(e);
         }
     }
 

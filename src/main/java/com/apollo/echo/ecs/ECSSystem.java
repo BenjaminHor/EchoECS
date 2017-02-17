@@ -18,7 +18,11 @@ public abstract class ECSSystem {
         PROCESS, RENDER;
     }
 
-    protected void setUniqueID(String UID) {
+    protected ECSSystem() {
+        setUniqueID(getClass().getName());
+    }
+
+    private void setUniqueID(String UID) {
         this.UID = UID;
     }
 
@@ -36,7 +40,7 @@ public abstract class ECSSystem {
      * Process an entity if it contains the relevant components to the system
      * but none of the rejected components
      */
-    public boolean checkEntity(ECSEntity e) {
+    private boolean checkEntity(ECSEntity e) {
         boolean valid = false;
         for (String s : irrelevantComponents) {
             valid = e.hasComponent(s);
@@ -73,9 +77,7 @@ public abstract class ECSSystem {
     }
 
     public void addEntity(ECSEntity e) {
-        if (!entities.contains(e)) {
-            entities.add(e);
-        }
+        if (checkEntity(e)) entities.add(e);
     }
 
     public boolean isEnabled() {
